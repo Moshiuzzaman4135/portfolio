@@ -171,7 +171,7 @@ export const Home = () => {
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-300/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -188,7 +188,7 @@ export const Home = () => {
                 <img
                   src={profileURL}
                   alt="Portrait of S.M. Moshiuzzaman Shatil"
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-center"
                   onError={() => setAvatarError(true)}
                 />
               ) : (
@@ -281,10 +281,12 @@ export const Home = () => {
                 Or drop a message at{' '}
                 <span className="font-mono text-slate-700 dark:text-slate-200">{contactEmail}</span>
               </p>
-              <span className="text-xs text-slate-500 dark:text-slate-400" aria-live="polite">
-                {emailCopyStatus === 'copied' && 'Email copied! Paste it wherever you need.'}
-                {emailCopyStatus === 'failed' && 'Copy didn\'t work—long press or right click to copy instead.'}
-              </span>
+              {emailCopyStatus !== 'idle' && (
+                <span className="text-xs text-slate-500 dark:text-slate-400" aria-live="polite">
+                  {emailCopyStatus === 'copied' && 'Email copied! Paste it wherever you need.'}
+                  {emailCopyStatus === 'failed' && "Copy didn't work—long press or right click to copy instead."}
+                </span>
+              )}
             </motion.div>
           </motion.div>
 
@@ -292,7 +294,7 @@ export const Home = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 1, repeat: Infinity, repeatType: 'reverse' }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 pointer-events-none"
           >
             <ChevronDown className="w-8 h-8 text-slate-400" />
           </motion.div>

@@ -16,7 +16,7 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
-        <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
           <Header />
           <main>
             <Routes>

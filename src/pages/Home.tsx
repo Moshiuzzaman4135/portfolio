@@ -84,6 +84,7 @@ const highlightCards = [
 
 export const Home = () => {
   const [currentSpecialty, setCurrentSpecialty] = useState(0);
+  const [avatarError, setAvatarError] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -121,12 +122,12 @@ export const Home = () => {
   );
 
   return (
-    <div className="min-h-screen">
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40"></div>
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-100 via-white to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMDAsMjA2LDIxNywwLjA0KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30"></div>
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-cyan-400/20 dark:bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-300/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -140,16 +141,25 @@ export const Home = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="w-32 h-32 mx-auto bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-4xl font-bold text-white"
+              className="relative w-36 h-36 sm:w-40 sm:h-40 mx-auto rounded-full shadow-xl shadow-cyan-500/20 border-4 border-white/80 dark:border-slate-800 overflow-hidden bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center"
             >
-              SMS
+              {!avatarError ? (
+                <img
+                  src="/static/profile.jpg"
+                  alt="Portrait of S.M. Moshiuzzaman Shatil"
+                  className="w-full h-full object-cover"
+                  onError={() => setAvatarError(true)}
+                />
+              ) : (
+                <span className="text-4xl font-bold text-white">SMS</span>
+              )}
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white"
+              className="text-4xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white"
             >
               S.M. Moshiuzzaman Shatil
             </motion.h1>
@@ -158,7 +168,7 @@ export const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-xl sm:text-2xl text-slate-200 max-w-3xl mx-auto"
+              className="text-xl sm:text-2xl text-slate-600 dark:text-slate-200 max-w-3xl mx-auto"
             >
               Senior Software Engineer crafting resilient AI platforms, backend systems, and MLOps workflows for national-scale impact.
             </motion.p>
@@ -167,7 +177,7 @@ export const Home = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/60 border border-white/10 rounded-full text-cyan-300 font-mono text-sm sm:text-base"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-full text-cyan-600 dark:text-cyan-300 font-mono text-sm sm:text-base"
             >
               <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>
               {specialties[currentSpecialty]}
@@ -183,7 +193,7 @@ export const Home = () => {
                 href="https://github.com/Moshiuzzaman4135"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-300 hover:text-cyan-400 transition-colors"
+                className="text-slate-500 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors"
                 aria-label="GitHub"
               >
                 <Github className="w-7 h-7" />
@@ -192,14 +202,14 @@ export const Home = () => {
                 href="https://www.linkedin.com/in/moshiuzzaman-shatil/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-300 hover:text-cyan-400 transition-colors"
+                className="text-slate-500 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-7 h-7" />
               </a>
               <a
                 href="mailto:shatil4135@gmail.com"
-                className="text-slate-300 hover:text-cyan-400 transition-colors"
+                className="text-slate-500 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors"
                 aria-label="Email"
               >
                 <Mail className="w-7 h-7" />
@@ -218,7 +228,7 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="bg-white dark:bg-slate-900 py-16 sm:py-20">
+      <section className="bg-white/80 dark:bg-slate-900 py-16 sm:py-20 backdrop-blur">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {stats.map((stat) => (
@@ -228,7 +238,7 @@ export const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/60 p-6"
+                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-800/60 p-6 shadow-sm shadow-slate-200/60 dark:shadow-none"
               >
                 <p className="text-sm uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">{stat.label}</p>
                 <p className="text-4xl font-bold text-slate-900 dark:text-white mb-2">{stat.value}</p>
@@ -239,7 +249,7 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="bg-slate-50 dark:bg-slate-900 py-16 sm:py-24">
+      <section className="bg-slate-100/80 dark:bg-slate-900 py-16 sm:py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -307,7 +317,7 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="bg-white dark:bg-slate-900 py-16 sm:py-24">
+      <section className="bg-white/80 dark:bg-slate-900 py-16 sm:py-24 backdrop-blur">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
             <div>
@@ -337,7 +347,7 @@ export const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-8"
+                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-800/60 p-8 shadow-sm shadow-slate-200/60 dark:shadow-none"
               >
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <div>
@@ -360,7 +370,7 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="bg-slate-50 dark:bg-slate-900 py-16 sm:py-24">
+      <section className="bg-slate-100/80 dark:bg-slate-900 py-16 sm:py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
             <div>
@@ -415,7 +425,7 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="bg-white dark:bg-slate-900 py-16 sm:py-24">
+      <section className="bg-white/80 dark:bg-slate-900 py-16 sm:py-24 backdrop-blur">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
             <div>
@@ -447,7 +457,7 @@ export const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-6"
+                  className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-800/60 p-6 shadow-sm shadow-slate-200/60 dark:shadow-none"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center`}>
@@ -473,7 +483,7 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="bg-slate-50 dark:bg-slate-900 py-16 sm:py-24">
+      <section className="bg-slate-100/80 dark:bg-slate-900 py-16 sm:py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
             <div>
@@ -503,7 +513,7 @@ export const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/70 p-6"
+                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-800/70 p-6 shadow-sm shadow-slate-200/60 dark:shadow-none"
               >
                 <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-4">
                   <span>{new Date(article.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>

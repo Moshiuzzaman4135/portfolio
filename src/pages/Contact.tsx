@@ -64,7 +64,7 @@ export const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-slate-100 via-white to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -93,7 +93,7 @@ export const Contact = () => {
             <div className="space-y-6">
               <a
                 href="mailto:shatil4135@gmail.com"
-                className="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-500 transition-colors group"
+                className="flex items-center gap-4 p-4 bg-white/90 dark:bg-slate-900/80 backdrop-blur rounded-xl border border-slate-200 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-500 transition-colors group shadow-sm shadow-slate-200/60 dark:shadow-none"
               >
                 <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
                   <Mail className="w-6 h-6 text-white" />
@@ -110,7 +110,7 @@ export const Contact = () => {
                 href="https://github.com/Moshiuzzaman4135"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-500 transition-colors group"
+                className="flex items-center gap-4 p-4 bg-white/90 dark:bg-slate-900/80 backdrop-blur rounded-xl border border-slate-200 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-500 transition-colors group shadow-sm shadow-slate-200/60 dark:shadow-none"
               >
                 <div className="w-12 h-12 bg-gradient-to-br from-slate-700 to-slate-900 rounded-lg flex items-center justify-center">
                   <Github className="w-6 h-6 text-white" />
@@ -127,7 +127,7 @@ export const Contact = () => {
                 href="https://www.linkedin.com/in/moshiuzzaman-shatil/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-500 transition-colors group"
+                className="flex items-center gap-4 p-4 bg-white/90 dark:bg-slate-900/80 backdrop-blur rounded-xl border border-slate-200 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-500 transition-colors group shadow-sm shadow-slate-200/60 dark:shadow-none"
               >
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
                   <Linkedin className="w-6 h-6 text-white" />
@@ -146,7 +146,7 @@ export const Contact = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700"
+            className="bg-white/90 dark:bg-slate-900/80 backdrop-blur rounded-2xl p-8 border border-slate-200 dark:border-slate-700 shadow-lg shadow-slate-200/60 dark:shadow-none"
           >
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
               Send a Message

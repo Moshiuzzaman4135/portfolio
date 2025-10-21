@@ -18,6 +18,8 @@ export const experiences: ExperienceItem[] = [
       'Architected and deployed cloud-native microservices on Docker & Kubernetes, integrating speech and NLP modules with robust monitoring and CI/CD automation.',
       'Spearheaded backend architecture for the iVip Video Intelligence Platform combining FRS, ANPR, and video captioning analytics with Redis & Celery orchestration.',
       'Built and integrated LLM-driven content generation workflows for Kindermate, enabling adaptive lesson planning and contextual tutoring experiences.',
+      'Presented the "Enhancing Splunk for Machine Data Analytics" paper at ACM ICDIS 2023, aligning Tiger IT telemetry standards with the proposed governance model.',
+      'Rolled out unified observability with Grafana, Loki, and OpenTelemetry, reducing mean time to detect for production anomalies by 45%.',
     ],
   },
   {
@@ -30,6 +32,8 @@ export const experiences: ExperienceItem[] = [
       'Designed REST APIs and automated benchmarking tools for multilingual ML models powering continuous evaluation loops in production.',
       'Integrated performance monitoring across FRS, ANPR, and translation modules to track accuracy drift and operational efficiency.',
       'Contributed to CommChat by developing translation and speech pipelines for multilingual communication alongside CI/CD automation.',
+      'Developed biometric deduplication services and rules engines that supported millions of NID and passport enrollment decisions.',
+      'Maintained internal Python and TypeScript libraries for feature toggles, data validation, and messaging that are reused across 8+ microservices.',
     ],
   },
   {

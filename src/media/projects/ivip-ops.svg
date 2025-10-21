@@ -1,0 +1,31 @@
+<svg width="640" height="480" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title>iVip Operations Dashboard</title>
+  <desc>Abstract representation of distributed video intelligence pipelines.</desc>
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0891b2" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f2937" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#grad2)" rx="32" />
+  <g fill="none" stroke="#38bdf8" stroke-width="4" opacity="0.8">
+    <rect x="60" y="120" width="220" height="140" rx="20" />
+    <rect x="360" y="90" width="220" height="110" rx="20" />
+    <rect x="360" y="230" width="220" height="140" rx="20" />
+  </g>
+  <g fill="#e0f2fe" opacity="0.8">
+    <circle cx="170" cy="190" r="10" />
+    <circle cx="230" cy="190" r="10" />
+    <circle cx="420" cy="140" r="10" />
+    <circle cx="520" cy="140" r="10" />
+    <circle cx="420" cy="300" r="10" />
+    <circle cx="520" cy="300" r="10" />
+  </g>
+  <path d="M280 190 C320 190 340 140 380 140" stroke="#38bdf8" stroke-width="6" fill="none" stroke-linecap="round" />
+  <path d="M280 190 C320 190 340 300 380 300" stroke="#38bdf8" stroke-width="6" fill="none" stroke-linecap="round" />
+  <text x="60" y="70" font-family="'Inter', sans-serif" font-size="36" fill="#bae6fd">Video Intelligence Ops</text>
+</svg>

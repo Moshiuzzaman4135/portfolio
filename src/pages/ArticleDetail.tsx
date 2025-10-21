@@ -29,8 +29,8 @@ export const ArticleDetail = () => {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-slate-900">
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-slate-100 via-white to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-3xl border border-slate-200 dark:border-slate-800 py-10 px-6 sm:px-10 shadow-xl shadow-slate-200/60 dark:shadow-none">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

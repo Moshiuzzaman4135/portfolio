@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, FileText, MapPin, Mail, Phone, Github, Linkedin, ExternalLink } from 'lucide-react';
+import { Download, FileText, MapPin, Mail, Phone, Github, Linkedin, ExternalLink, UserCircle2 } from 'lucide-react';
 import { experiences } from '../data/experience';
 import { education } from '../data/education';
 import { skillCategories } from '../data/skills';
@@ -12,32 +13,57 @@ type ProjectHighlight = {
 
 const projectHighlights: ProjectHighlight[] = [
   {
-    title: 'Industry Projects at Tiger IT',
+    title: 'National AI Platforms at Tiger IT',
     description:
-      'Contributed to iVip (Video Intelligence Platform), CommChat (multilingual communication), Attendance System (FRS), and Kindermate (LLM-powered learning) with a focus on backend scalability and AI integration.',
+      'Delivered iVip (video intelligence), Smart Attendance (FRS), and ePass back-office services powering high-availability identity workflows for government programmes.',
   },
   {
-    title: 'Research: Enhancing Splunk for Machine Data Analytics',
+    title: 'LLM Experiences for Education & Customer Care',
     description:
-      'Published at ACM—proposed database optimisation, rule-based analysis, and visualisation enhancements for large-scale machine data analytics.',
+      'Built Kindermate lesson generation, auto-feedback, and Bengali-English copilots plus policy-aligned prompt libraries used across enterprise support desks.',
+  },
+  {
+    title: 'Conference Paper: Enhancing Splunk for Machine Data Analytics',
+    description:
+      'Presented at the 2023 International Conference on Data Intelligence and Security (ICDIS). Proposed optimised ingestion, adaptive dashboards, and ML-ready schemas for petabyte-scale telemetry.',
     link: 'https://dl.acm.org/doi/10.1145/3723178.3723272',
   },
   {
-    title: 'University Projects',
+    title: 'Academic Projects & Labs',
     description:
-      'HealthyHome (C# medical record manager) and ServicePoint (.NET service/job portal) developed as capstone initiatives.',
+      'HealthyHome EMR suite (C#), ServicePoint job portal (.NET), and a real-time attendance tracker built with OpenCV and TensorFlow.',
   },
 ];
 
 const summary = [
   'Senior Software Engineer with 5+ years of experience spanning AI, backend engineering, and MLOps.',
-  'Proven track record leading cross-functional teams to architect and deploy production-grade ML systems, video intelligence platforms, and LLM experiences.',
-  'Comfortable working across the full product lifecycle—from ideation and stakeholder alignment to deployment, monitoring, and continuous optimisation.',
+  'Lead developer for video intelligence, biometric deduplication, and multilingual communication platforms serving millions of citizens.',
+  'Conference speaker and published author on data analytics pipelines with a focus on observability, data quality, and deployment governance.',
+  'Comfortable steering the full product lifecycle—from discovery and architecture to launch, scaling, and knowledge transfer.',
 ];
 
 export const Resume = () => {
+  const [resumeAvailable, setResumeAvailable] = useState(false);
+  const [avatarError, setAvatarError] = useState(false);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch('/static/resume.pdf', { method: 'HEAD', signal: controller.signal })
+      .then((response) => {
+        if (response.ok) {
+          setResumeAvailable(true);
+        }
+      })
+      .catch(() => {
+        setResumeAvailable(false);
+      });
+
+    return () => controller.abort();
+  }, []);
+
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-slate-900">
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-slate-100 via-white to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,29 +75,51 @@ export const Resume = () => {
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8">
             A consolidated view of professional experience, projects, and expertise.
           </p>
-          <button
-            type="button"
-            disabled
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-slate-300 to-slate-400 text-slate-700 font-semibold cursor-not-allowed"
-            aria-disabled
-            title="Downloadable resume will be added soon"
-          >
-            <Download className="w-5 h-5" />
-            Download coming soon
-          </button>
+          {resumeAvailable ? (
+            <a
+              href="/static/resume.pdf"
+              download
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold shadow-lg shadow-cyan-500/25 hover:shadow-xl transition-shadow"
+            >
+              <Download className="w-5 h-5" />
+              Download Resume
+            </a>
+          ) : (
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-slate-200 text-slate-600 font-semibold">
+              <Download className="w-5 h-5" />
+              Add <span className="font-mono">resume.pdf</span> to /public/static
+            </div>
+          )}
         </motion.div>
 
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8 md:p-10"
+          className="bg-white/80 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8 md:p-10 shadow-xl shadow-slate-200/60 dark:shadow-none"
         >
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">S.M. Moshiuzzaman Shatil</h2>
-              <p className="text-lg text-cyan-600 dark:text-cyan-400 font-semibold mt-2">Senior Software Engineer</p>
-              <div className="mt-4 space-y-2 text-slate-600 dark:text-slate-300">
+            <div className="flex items-center gap-4">
+              <div className="w-24 h-24 rounded-2xl overflow-hidden bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                {!avatarError ? (
+                  <img
+                    src="/static/profile.jpg"
+                    alt="Portrait of S.M. Moshiuzzaman Shatil"
+                    className="w-full h-full object-cover"
+                    onError={() => setAvatarError(true)}
+                  />
+                ) : (
+                  <UserCircle2 className="w-14 h-14 text-white" />
+                )}
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white">S.M. Moshiuzzaman Shatil</h2>
+                <p className="text-lg text-cyan-600 dark:text-cyan-400 font-semibold mt-2">Senior Software Engineer</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">AI/ML Platforms • Backend Engineering • MLOps Leadership</p>
+              </div>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4 text-slate-600 dark:text-slate-300">
+              <div className="space-y-2">
                 <p className="flex items-center gap-2">
                   <MapPin className="w-5 h-5" />
                   Dhaka, Bangladesh
@@ -87,26 +135,26 @@ export const Resume = () => {
                   +880-1727546726
                 </p>
               </div>
-            </div>
-            <div className="flex flex-col gap-3 text-slate-600 dark:text-slate-300">
-              <a
-                href="https://github.com/Moshiuzzaman4135"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 hover:text-cyan-500 transition-colors"
-              >
-                <Github className="w-5 h-5" />
-                github.com/Moshiuzzaman4135
-              </a>
-              <a
-                href="https://www.linkedin.com/in/moshiuzzaman-shatil/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 hover:text-cyan-500 transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-                linkedin.com/in/moshiuzzaman-shatil
-              </a>
+              <div className="space-y-2">
+                <a
+                  href="https://github.com/Moshiuzzaman4135"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-cyan-500 transition-colors"
+                >
+                  <Github className="w-5 h-5" />
+                  github.com/Moshiuzzaman4135
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/moshiuzzaman-shatil/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-cyan-500 transition-colors"
+                >
+                  <Linkedin className="w-5 h-5" />
+                  linkedin.com/in/moshiuzzaman-shatil
+                </a>
+              </div>
             </div>
           </div>
 
@@ -134,7 +182,7 @@ export const Resume = () => {
             {experiences.map((experience) => (
               <div
                 key={`${experience.company}-${experience.role}`}
-                className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/60 p-6"
+                className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/60 p-6 shadow-sm shadow-slate-200/60 dark:shadow-none"
               >
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 mb-4">
                   <div>
@@ -172,7 +220,7 @@ export const Resume = () => {
             {projectHighlights.map((project) => (
               <div
                 key={project.title}
-                className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 p-6"
+                className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/60 p-6 shadow-sm shadow-slate-200/60 dark:shadow-none"
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                   <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{project.title}</h3>
@@ -211,7 +259,7 @@ export const Resume = () => {
               return (
                 <div
                   key={category.title}
-                  className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/60 p-6"
+                  className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/60 p-6 shadow-sm shadow-slate-200/60 dark:shadow-none"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
@@ -250,7 +298,7 @@ export const Resume = () => {
             {education.map((entry) => (
               <div
                 key={`${entry.institution}-${entry.degree}`}
-                className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/60 p-6"
+                className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/60 p-6 shadow-sm shadow-slate-200/60 dark:shadow-none"
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">
                   <div>

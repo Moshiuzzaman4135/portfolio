@@ -1,0 +1,27 @@
+<svg width="640" height="480" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title>Conference Presentation</title>
+  <desc>Stylised illustration of presenting research outcomes.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdf2f8" />
+      <stop offset="100%" stop-color="#e0f2fe" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#bg)" rx="32" />
+  <g stroke="#1d4ed8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M120 360 L120 140 L520 140 L520 360" />
+    <path d="M160 180 H480" />
+    <path d="M160 220 C240 320 400 80 480 220" />
+    <path d="M200 260 L240 320" />
+    <path d="M280 260 L320 320" />
+    <path d="M360 260 L400 320" />
+  </g>
+  <circle cx="160" cy="360" r="18" fill="#1d4ed8" opacity="0.7" />
+  <circle cx="240" cy="360" r="18" fill="#2563eb" opacity="0.7" />
+  <circle cx="320" cy="360" r="18" fill="#4f46e5" opacity="0.7" />
+  <circle cx="400" cy="360" r="18" fill="#1d4ed8" opacity="0.7" />
+  <circle cx="480" cy="360" r="18" fill="#2563eb" opacity="0.7" />
+  <text x="140" y="120" font-size="32" font-family="'Inter', sans-serif" fill="#1f2937">
+    ACM ICDIS 2023
+  </text>
+</svg>

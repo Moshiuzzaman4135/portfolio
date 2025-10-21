@@ -8,13 +8,36 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    const saved = window.localStorage.getItem('theme');
+    if (saved) {
+      return saved === 'dark';
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    if (saved) {
-      setIsDark(saved === 'dark');
+    const listener = (event: MediaQueryListEvent) => {
+      if (!localStorage.getItem('theme')) {
+        setIsDark(event.matches);
+      }
+    };
+
+    const query = window.matchMedia('(prefers-color-scheme: dark)');
+
+    if (typeof query.addEventListener === 'function') {
+      query.addEventListener('change', listener);
+      return () => query.removeEventListener('change', listener);
     }
+
+    // Fallback for older browsers
+    query.addListener(listener);
+    return () => query.removeListener(listener);
   }, []);
 
   useEffect(() => {

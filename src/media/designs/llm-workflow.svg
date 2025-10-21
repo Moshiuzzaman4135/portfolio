@@ -1,0 +1,32 @@
+<svg width="640" height="480" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title>LLM Workflow Sketch</title>
+  <desc>Conceptual wireframe of Kindermate lesson generation workflow.</desc>
+  <rect width="640" height="480" fill="#f8fafc" rx="24" />
+  <g fill="#0f172a" font-family="'Inter', sans-serif">
+    <text x="60" y="80" font-size="28" font-weight="700">Kindermate Lesson Flow</text>
+    <text x="60" y="120" font-size="18">Input</text>
+    <text x="260" y="120" font-size="18">Planner</text>
+    <text x="460" y="120" font-size="18">Outputs</text>
+  </g>
+  <g fill="none" stroke="#0891b2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="40" y="140" width="160" height="220" rx="16" />
+    <rect x="240" y="140" width="160" height="220" rx="16" />
+    <rect x="440" y="140" width="160" height="220" rx="16" />
+    <path d="M200 250 H240" />
+    <path d="M400 250 H440" />
+    <path d="M320 360 V400" />
+    <path d="M320 400 C320 420 280 420 280 440" />
+    <path d="M320 400 C320 420 360 420 360 440" />
+  </g>
+  <g fill="#1f2937" font-family="'Inter', sans-serif" font-size="16">
+    <text x="60" y="180">Curriculum</text>
+    <text x="60" y="206">Student profile</text>
+    <text x="60" y="232">Parent notes</text>
+    <text x="260" y="180">Lesson planner</text>
+    <text x="260" y="206">Guardrails</text>
+    <text x="260" y="232">Evaluation prompts</text>
+    <text x="460" y="180">Stories</text>
+    <text x="460" y="206">Activities</text>
+    <text x="460" y="232">Assessments</text>
+  </g>
+</svg>

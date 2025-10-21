@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Video, MessageSquare, GraduationCap, Users } from 'lucide-react';
+import { Video, MessageSquare, GraduationCap, Users, Database, ShieldCheck, Workflow } from 'lucide-react';
 
 export interface ProjectItem {
   icon: LucideIcon;
@@ -42,5 +42,30 @@ export const projects: ProjectItem[] = [
       'Facial recognition-based attendance solution featuring distributed inference, real-time analytics, and actionable workforce insights.',
     tech: ['Python', 'PyTorch', 'FastAPI', 'PostgreSQL', 'Redis', 'Computer Vision'],
     gradient: 'from-pink-500 to-rose-600',
+  },
+  {
+    icon: Database,
+    title: 'Splunk Analytics Accelerator',
+    description:
+      'Researched and implemented ingestion optimisations, anomaly detection rules, and adaptive dashboards for petabyte-scale machine data powering SOC and NOC use cases.',
+    tech: ['Splunk', 'Python', 'Kafka', 'Grafana', 'Elasticsearch'],
+    gradient: 'from-amber-500 to-orange-600',
+    link: 'https://dl.acm.org/doi/10.1145/3723178.3723272',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'ePass Biometric Platform',
+    description:
+      'Microservices suite for passport issuance with biometric deduplication, queue management, and document verification integrated with national registries.',
+    tech: ['FastAPI', 'RabbitMQ', 'PostgreSQL', 'Redis', 'Docker', 'Keycloak'],
+    gradient: 'from-emerald-500 to-teal-600',
+  },
+  {
+    icon: Workflow,
+    title: 'LLM Ops Toolkit',
+    description:
+      'Internal developer platform featuring guardrailed prompt templates, evaluation harnesses, and monitoring dashboards for production-ready generative AI experiences.',
+    tech: ['LangChain', 'FastAPI', 'OpenAI', 'PostgreSQL', 'Prefect', 'TypeScript'],
+    gradient: 'from-sky-500 to-indigo-600',
   },
 ];

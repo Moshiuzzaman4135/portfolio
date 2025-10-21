@@ -1,41 +1,6 @@
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar } from 'lucide-react';
-
-const experiences = [
-  {
-    company: 'TigerIT Bangladesh Ltd.',
-    role: 'Senior Software Engineer',
-    period: 'Sep 2024 - Present',
-    achievements: [
-      'Led and coordinated a 6-member cross-functional team delivering AI, NLP, and backend microservices',
-      'Clustered and optimized 1.2M+ facial embeddings for national identity verification systems',
-      'Architected scalable video intelligence backends integrating FRS, ANPR, and captioning modules',
-      'Developed LLM-driven adaptive learning workflows for the Kindermate platform',
-      'Deployed distributed microservices on Kubernetes with integrated monitoring and CI/CD',
-    ],
-  },
-  {
-    company: 'TigerIT Bangladesh Ltd.',
-    role: 'Software Engineer',
-    period: 'Feb 2021 - Aug 2024',
-    achievements: [
-      'Developed asynchronous pipelines for real-time ANPR and face recognition',
-      'Built ML benchmarking APIs for multilingual evaluation workflows',
-      'Implemented translation/speech integration for CommChat multilingual messaging',
-      'Automated CI/CD workflows for reproducible deployment pipelines',
-    ],
-  },
-  {
-    company: 'Mindfork Tech Ltd.',
-    role: 'Software Development Intern',
-    period: 'Sep 2020 - Jan 2021',
-    achievements: [
-      'Improved textile e-commerce Android app using React Native',
-      'Designed MySQL schemas and ASP.NET Core REST APIs',
-      'Enhanced .NET Razor admin panel for workflow management',
-    ],
-  },
-];
+import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { experiences } from '../data/experience';
 
 export const Experience = () => {
   return (
@@ -57,7 +22,7 @@ export const Experience = () => {
         <div className="space-y-12">
           {experiences.map((exp, index) => (
             <motion.div
-              key={index}
+              key={`${exp.company}-${exp.role}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -80,9 +45,15 @@ export const Experience = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                  <Calendar className="w-5 h-5" />
-                  <span className="font-medium">{exp.period}</span>
+                <div className="flex flex-col items-start sm:items-end gap-2 text-slate-600 dark:text-slate-400">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-5 h-5" />
+                    <span className="font-medium">{exp.period}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                    <MapPin className="w-4 h-4" />
+                    <span>{exp.location}</span>
+                  </div>
                 </div>
               </div>
 

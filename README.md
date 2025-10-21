@@ -57,6 +57,31 @@ The optimised assets are emitted to the `dist` directory. You can preview the pr
 npm run preview
 ```
 
+## Deployment
+
+### GitHub Pages (free)
+
+This repository includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that builds the site and publishes it to GitHub Pages whenever you push to the `main` branch. To enable it:
+
+1. Navigate to your repository settings on GitHub and enable **Pages** with the "GitHub Actions" deployment source.
+2. Ensure the default branch is called `main` (update the workflow trigger if you use a different branch name).
+3. Commit and push the project to GitHub—each push to `main` will rebuild and deploy automatically.
+
+The workflow sets the `BASE_PATH` environment variable to `/<repository-name>/` so that Vite produces correct asset paths for project pages (e.g. `username.github.io/portfolio`). If you host the site at the root of a user/organisation page (`username.github.io`), update the `BASE_PATH` value in the workflow to `/`.
+
+To run a GitHub Pages production build locally you can mimic the workflow with:
+
+```bash
+BASE_PATH=/$(basename $(git rev-parse --show-toplevel))/ npm run build
+```
+
+### Other free hosting options
+
+- **Netlify** – Connect the repository, set the build command to `npm run build`, and publish the `dist` folder. If your site will be served from a sub-path, define `BASE_PATH` in the Netlify build environment.
+- **Vercel** – Import the GitHub repository and use the default Vite preset (build command `npm run build`, output `dist`).
+
+Both services include generous free tiers and handle previews for pull requests automatically.
+
 ## Project Structure
 
 ```

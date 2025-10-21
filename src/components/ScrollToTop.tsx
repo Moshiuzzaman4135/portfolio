@@ -1,3 +1,8 @@
+omponents/ScrollToTop.tsx
+New
++21
+-0
+
 import { useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 

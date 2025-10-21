@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { ScrollToTop } from './components/ScrollToTop';
 import { Home } from './pages/Home';
 import { Experience } from './pages/Experience';
 import { Skills } from './pages/Skills';
@@ -18,6 +19,7 @@ function App() {
       <Router basename="/portfolio">
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
           <Header />
+          <ScrollToTop />
           <main>
             <Routes>
               <Route path="/" element={<Home />} />

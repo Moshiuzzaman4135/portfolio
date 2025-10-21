@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Image as ImageIcon, Video as VideoIcon } from 'lucide-react';
-import { mediaItems, type MediaItem } from '../data/media';
-
-const categories = ['All', 'Projects', 'Events', 'Personal', 'Designs'];
+import { mediaItems, mediaCategories, type MediaItem } from '../data/media';
 
 export const Media = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState(mediaCategories[0] ?? 'All');
   const [lightboxImage, setLightboxImage] = useState<MediaItem | null>(null);
 
   const filteredItems =
@@ -15,7 +13,7 @@ export const Media = () => {
       : mediaItems.filter((item) => item.category === selectedCategory);
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-slate-900">
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-slate-100 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -31,7 +29,7 @@ export const Media = () => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => (
+            {mediaCategories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
@@ -55,7 +53,7 @@ export const Media = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ scale: 1.02 }}
-              className="relative group cursor-pointer rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 aspect-square"
+              className="relative group cursor-pointer rounded-xl overflow-hidden bg-white/80 dark:bg-slate-900/70 aspect-square border border-slate-200 dark:border-slate-700 shadow-sm shadow-slate-200/60 dark:shadow-none"
               onClick={() => setLightboxImage(item)}
             >
               <img

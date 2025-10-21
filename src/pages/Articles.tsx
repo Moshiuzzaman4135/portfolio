@@ -5,7 +5,7 @@ import { articles } from '../data/articles';
 
 export const Articles = () => {
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-slate-100 via-white to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -30,7 +30,7 @@ export const Articles = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-all hover:shadow-xl"
+              className="bg-white/90 dark:bg-slate-900/80 backdrop-blur rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-all hover:shadow-xl"
             >
               <Link to={`/articles/${article.id}`} className="block">
                 <div className="h-2 bg-gradient-to-r from-cyan-500 to-blue-600"></div>

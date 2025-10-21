@@ -4,7 +4,7 @@ import { experiences } from '../data/experience';
 
 export const Experience = () => {
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-slate-900">
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-slate-100 via-white to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -27,7 +27,7 @@ export const Experience = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-colors"
+              className="bg-white/90 dark:bg-slate-900/70 backdrop-blur rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-colors shadow-sm shadow-slate-200/60 dark:shadow-none"
             >
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-6 gap-4">
                 <div className="flex-1">

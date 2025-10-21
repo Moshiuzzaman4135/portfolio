@@ -11,6 +11,54 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    id: 'enhancing-splunk-acm-icdis',
+    title: 'Enhancing Splunk for Machine Data Analytics',
+    description:
+      'Conference paper recap covering data governance, pipeline optimisation, and observability practices adopted at Tiger IT for national-scale telemetry.',
+    content: `
+# Enhancing Splunk for Machine Data Analytics
+
+This article summarises my ACM ICDIS 2023 conference paper on optimising Splunk for petabyte-scale machine data analytics. The full paper is available via the ACM Digital Library.
+
+## Why We Revisited Splunk Architecture
+
+Operating national identity and security platforms requires ingesting billions of log lines every day. We faced three core challenges:
+
+1. **Ingestion bottlenecks** when onboarding new data sources.
+2. **Fragmented governance** around knowledge objects, leading to duplicated alerts and dashboards.
+3. **Difficult hand-offs** between SOC, NOC, and platform engineering teams.
+
+## Architectural Enhancements
+
+### Smart Data Onboarding
+
+We introduced a Kafka-based landing zone with schema validation and dynamic sourcetypes before pushing to Splunk indexers. This reduced onboarding time from weeks to days.
+
+### Managed Knowledge Objects
+
+A Git-backed configuration service now stores searches, macros, and dashboards. Engineers submit pull requests that trigger automated validation and Splunk API tests before promotion.
+
+### Insight Workflows
+
+Dashboards are bundled with recommended runbooks. Operators can jump directly to Jupyter notebooks or Grafana panels for deep dives, keeping context between teams.
+
+## Outcomes
+
+- 38% faster mean-time-to-detect for production anomalies.
+- 22% reduction in infrastructure spend by tuning hot/warm bucket policies.
+- Clear ownership of alerts and dashboards across three operations teams.
+
+## Looking Ahead
+
+We are extending the framework with anomaly detection (via Prophet) and real-time quality scoring for new data sources. The reference implementation is being adapted for other telemetry stacks beyond Splunk.
+
+> 📄 **Reference**: ACM ICDIS 2023, DOI: [10.1145/3723178.3723272](https://dl.acm.org/doi/10.1145/3723178.3723272)
+    `,
+    publishDate: '2023-12-12',
+    readTime: 10,
+    tags: ['Observability', 'Splunk', 'Conference', 'Data Engineering'],
+  },
+  {
     id: 'scalable-ml-pipelines',
     title: 'Building Scalable ML Pipelines with FastAPI and Kubernetes',
     description:

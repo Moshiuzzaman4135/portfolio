@@ -15,7 +15,7 @@ import { Contact } from './pages/Contact';
 function App() {
   return (
     <ThemeProvider>
-      <Router>
+      <Router basename="/portfolio">
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
           <Header />
           <main>

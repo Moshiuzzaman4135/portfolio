@@ -117,27 +117,27 @@ export const Resume = () => {
           className="bg-white/80 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8 md:p-10 shadow-xl shadow-slate-200/60 dark:shadow-none"
         >
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-            <div className="flex items-center gap-4">
-              <div className="w-24 h-24 rounded-2xl overflow-hidden bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+            <div className="flex flex-col items-center text-center gap-4 md:flex-1">
+              <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/30">
                 {!avatarError ? (
                   <img
                     src={profileURL}
                     alt="Portrait of S.M. Moshiuzzaman Shatil"
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover object-center"
                     onError={() => setAvatarError(true)}
                   />
                 ) : (
-                  <UserCircle2 className="w-14 h-14 text-white" />
+                  <UserCircle2 className="w-16 h-16 text-white" />
                 )}
               </div>
-              <div>
+              <div className="space-y-2">
                 <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
                   S.M. Moshiuzzaman Shatil
                 </h2>
-                <p className="text-lg text-cyan-600 dark:text-cyan-400 font-semibold mt-2">
+                <p className="text-lg text-cyan-600 dark:text-cyan-400 font-semibold">
                   Senior Software Engineer
                 </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   AI/ML Platforms • Backend Engineering • MLOps Leadership
                 </p>
               </div>

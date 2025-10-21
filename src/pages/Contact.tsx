@@ -2,6 +2,36 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send, CheckCircle } from 'lucide-react';
 
+const emailAddress = 'shatil4135@gmail.com';
+
+const copyTextToClipboard = async (text: string) => {
+  try {
+    if (
+      typeof navigator !== 'undefined' &&
+      navigator.clipboard &&
+      typeof navigator.clipboard.writeText === 'function'
+    ) {
+      await navigator.clipboard.writeText(text);
+    } else if (typeof document !== 'undefined') {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    } else {
+      throw new Error('Clipboard not available');
+    }
+    return true;
+  } catch (error) {
+    console.error('Failed to copy text', error);
+    return false;
+  }
+};
+
 export const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -10,6 +40,14 @@ export const Contact = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [contactCopyStatus, setContactCopyStatus] = useState<'idle' | 'copied' | 'failed'>('idle');
+  const [submissionStatus, setSubmissionStatus] = useState<
+    'idle' | 'email-opened' | 'copied' | 'manual'
+  >('idle');
+  const [preparedMessage, setPreparedMessage] = useState('');
+  const [submissionCopyStatus, setSubmissionCopyStatus] = useState<
+    'idle' | 'copied' | 'failed'
+  >('idle');
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
@@ -34,25 +72,75 @@ export const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
-      const mailtoLink = `mailto:shatil4135@gmail.com?subject=Contact from ${encodeURIComponent(
-        formData.name
-      )}&body=${encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      )}`;
+      const subject = `Contact from ${formData.name}`;
+      const messageBody = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+      const mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(messageBody)}`;
+      const fallbackMessage = `To: ${emailAddress}\nSubject: ${subject}\n\n${messageBody}`;
 
-      window.location.href = mailtoLink;
+      setPreparedMessage(fallbackMessage);
+      setSubmissionCopyStatus('idle');
+
+      let launchedEmailClient = false;
+
+      try {
+        const openedWindow = window.open(mailtoLink, '_blank', 'noopener,noreferrer');
+
+        if (openedWindow) {
+          launchedEmailClient = true;
+        } else {
+          window.location.href = mailtoLink;
+          launchedEmailClient = true;
+        }
+      } catch (error) {
+        console.warn('Unable to open email client automatically', error);
+      }
+
+      if (launchedEmailClient) {
+        setSubmissionStatus('email-opened');
+      } else {
+        const copied = await copyTextToClipboard(fallbackMessage);
+
+        if (copied) {
+          setSubmissionStatus('copied');
+          setSubmissionCopyStatus('copied');
+        } else {
+          setSubmissionStatus('manual');
+          setSubmissionCopyStatus('failed');
+        }
+      }
 
       setIsSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
-
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
     }
+  };
+
+  const handleCopyEmail = async () => {
+    const copied = await copyTextToClipboard(emailAddress);
+    setContactCopyStatus(copied ? 'copied' : 'failed');
+
+    if (copied) {
+      setTimeout(() => setContactCopyStatus('idle'), 2500);
+    }
+  };
+
+  const handleCopyPreparedMessage = async () => {
+    if (!preparedMessage) return;
+
+    const copied = await copyTextToClipboard(preparedMessage);
+    setSubmissionCopyStatus(copied ? 'copied' : 'failed');
+  };
+
+  const handleResetForm = () => {
+    setIsSubmitted(false);
+    setSubmissionStatus('idle');
+    setPreparedMessage('');
+    setSubmissionCopyStatus('idle');
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -92,7 +180,7 @@ export const Contact = () => {
 
             <div className="space-y-6">
               <a
-                href="mailto:shatil4135@gmail.com"
+                href={`mailto:${emailAddress}`}
                 className="flex items-center gap-4 p-4 bg-white/90 dark:bg-slate-900/80 backdrop-blur rounded-xl border border-slate-200 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-500 transition-colors group shadow-sm shadow-slate-200/60 dark:shadow-none"
               >
                 <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
@@ -101,8 +189,21 @@ export const Contact = () => {
                 <div>
                   <p className="text-sm text-slate-600 dark:text-slate-400">Email</p>
                   <p className="text-slate-900 dark:text-white font-semibold group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                    shatil4135@gmail.com
+                    {emailAddress}
                   </p>
+                  <div className="mt-2 flex flex-wrap items-center gap-3 text-sm">
+                    <button
+                      type="button"
+                      onClick={handleCopyEmail}
+                      className="inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-1.5 text-slate-600 dark:text-slate-300 hover:border-cyan-500 dark:hover:border-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                    >
+                      Copy email
+                    </button>
+                    <span className="text-xs text-slate-500 dark:text-slate-400" aria-live="polite">
+                      {contactCopyStatus === 'copied' && 'Email copied to clipboard.'}
+                      {contactCopyStatus === 'failed' && 'Copy failed. Long-press to copy manually.'}
+                    </span>
+                  </div>
                 </div>
               </a>
 
@@ -160,11 +261,56 @@ export const Contact = () => {
               >
                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-                  Message Sent!
+                  Message Ready!
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400">
-                  Thank you for reaching out. I'll get back to you soon.
-                </p>
+                {submissionStatus === 'email-opened' && (
+                  <p className="text-slate-600 dark:text-slate-400">
+                    Your default email app should now be open with the message ready to send. If nothing appeared, use the details
+                    below to send the email manually.
+                  </p>
+                )}
+                {submissionStatus === 'copied' && (
+                  <p className="text-slate-600 dark:text-slate-400">
+                    The email details have been copied to your clipboard. Paste them into a new message addressed to{' '}
+                    <span className="font-semibold text-slate-900 dark:text-white">{emailAddress}</span> and hit send.
+                  </p>
+                )}
+                {submissionStatus === 'manual' && (
+                  <p className="text-slate-600 dark:text-slate-400">
+                    I couldn’t launch your email app automatically. Please copy the details below and send them to{' '}
+                    <span className="font-semibold text-slate-900 dark:text-white">{emailAddress}</span>.
+                  </p>
+                )}
+
+                {preparedMessage && (
+                  <div className="mt-6 text-left bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-xl p-4">
+                    <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Email details</p>
+                    <pre className="text-sm text-slate-600 dark:text-slate-300 whitespace-pre-wrap break-words font-mono">
+                      {preparedMessage}
+                    </pre>
+                    <div className="mt-4 flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={handleCopyPreparedMessage}
+                        className="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-1.5 text-sm text-slate-700 dark:text-slate-200 hover:border-cyan-500 dark:hover:border-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                      >
+                        Copy details
+                      </button>
+                      <span className="text-xs text-slate-500 dark:text-slate-400" aria-live="polite">
+                        {submissionCopyStatus === 'copied' && 'Copied! Paste the text into your email app.'}
+                        {submissionCopyStatus === 'failed' && 'Copy didn\'t work. Select the text manually.'}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={handleResetForm}
+                  className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-cyan-500 dark:hover:border-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                >
+                  Send another message
+                </button>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">

@@ -36,7 +36,8 @@ jobs:
           BASE_PATH: /${{ github.event.repository.name }}/
         run: |
           echo "Using BASE_PATH=/${{ github.event.repository.name }}/"
-          BASE_PATH=/${{ github.event.repository.name }}/ npm run build
+          export BASE_PATH=/${{ github.event.repository.name }}/
+          npm run build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,6 +1,19 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, FileText, MapPin, Mail, Phone, Github, Linkedin, ExternalLink, UserCircle2 } from 'lucide-react';
+import {
+  Download,
+  FileText,
+  MapPin,
+  Mail,
+  Phone,
+  Github,
+  Linkedin,
+  ExternalLink,
+  UserCircle2,
+  Rocket,
+  Layers,
+  GraduationCap,
+} from 'lucide-react';
 import { experiences } from '../data/experience';
 import { education } from '../data/education';
 import { skillCategories } from '../data/skills';

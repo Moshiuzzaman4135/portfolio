@@ -1,49 +1,6 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Video, MessageSquare, GraduationCap, Users } from 'lucide-react';
-
-const projects = [
-  {
-    icon: Video,
-    title: 'iVip (Video Intelligence Platform)',
-    description:
-      'Distributed video analytics platform integrating Face Recognition System (FRS), Automatic Number Plate Recognition (ANPR), and scene understanding for large-scale surveillance and security applications.',
-    tech: [
-      'Python',
-      'FastAPI',
-      'Redis',
-      'Kubernetes',
-      'PostgreSQL',
-      'PyTorch',
-      'Docker',
-      'Celery',
-    ],
-    gradient: 'from-cyan-500 to-blue-600',
-  },
-  {
-    icon: MessageSquare,
-    title: 'CommChat',
-    description:
-      'Real-time multilingual messaging platform powered by advanced translation and speech APIs, enabling seamless communication across language barriers with low-latency message delivery.',
-    tech: ['FastAPI', 'WebSocket', 'Redis', 'PostgreSQL', 'Docker', 'NLP', 'Speech API'],
-    gradient: 'from-blue-500 to-purple-600',
-  },
-  {
-    icon: GraduationCap,
-    title: 'Kindermate',
-    description:
-      'LLM-powered education assistant platform for adaptive learning and intelligent content generation, providing personalized learning experiences for students.',
-    tech: ['Python', 'LLMs', 'FastAPI', 'PostgreSQL', 'Redis', 'Docker'],
-    gradient: 'from-purple-500 to-pink-600',
-  },
-  {
-    icon: Users,
-    title: 'Attendance System (FRS)',
-    description:
-      'Facial recognition-based attendance system with distributed inference, real-time processing, and comprehensive analytics for workforce management.',
-    tech: ['Python', 'PyTorch', 'FastAPI', 'PostgreSQL', 'Redis', 'Computer Vision'],
-    gradient: 'from-pink-500 to-rose-600',
-  },
-];
+import { ExternalLink } from 'lucide-react';
+import { projects } from '../data/projects';
 
 export const Projects = () => {
   return (
@@ -68,7 +25,7 @@ export const Projects = () => {
             const Icon = project.icon;
             return (
               <motion.div
-                key={index}
+                key={project.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -80,31 +37,32 @@ export const Projects = () => {
 
                 <div className="p-8">
                   <div className="flex items-start justify-between mb-4">
-                    <div
-                      className={`w-14 h-14 bg-gradient-to-br ${project.gradient} rounded-xl flex items-center justify-center`}
-                    >
+                    <div className={`w-14 h-14 bg-gradient-to-br ${project.gradient} rounded-xl flex items-center justify-center`}>
                       <Icon className="w-7 h-7 text-white" />
                     </div>
-                    <button
-                      className="text-slate-400 hover:text-cyan-500 transition-colors"
-                      aria-label="View project"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                    </button>
+                    {project.link ? (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-400 hover:text-cyan-500 transition-colors"
+                        aria-label="View project"
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                      </a>
+                    ) : (
+                      <span className="text-xs text-slate-400 uppercase tracking-wide">Case study</span>
+                    )}
                   </div>
 
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
-                    {project.title}
-                  </h3>
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{project.title}</h3>
 
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                    {project.description}
-                  </p>
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">{project.description}</p>
 
                   <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, techIndex) => (
+                    {project.tech.map((tech) => (
                       <span
-                        key={techIndex}
+                        key={tech}
                         className="px-3 py-1.5 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium border border-slate-200 dark:border-slate-600"
                       >
                         {tech}

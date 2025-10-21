@@ -85,6 +85,7 @@ const highlightCards = [
 export const Home = () => {
   const [currentSpecialty, setCurrentSpecialty] = useState(0);
   const [avatarError, setAvatarError] = useState(false);
+  const profileURL = `${import.meta.env.BASE_URL}static/profile.jpg`;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -145,7 +146,7 @@ export const Home = () => {
             >
               {!avatarError ? (
                 <img
-                  src="/static/profile.jpg"
+                  src={profileURL}
                   alt="Portrait of S.M. Moshiuzzaman Shatil"
                   className="w-full h-full object-cover"
                   onError={() => setAvatarError(true)}

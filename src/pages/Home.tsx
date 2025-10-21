@@ -86,6 +86,8 @@ export const Home = () => {
   const [currentSpecialty, setCurrentSpecialty] = useState(0);
   const [avatarError, setAvatarError] = useState(false);
   const profileURL = `${import.meta.env.BASE_URL}static/profile.jpg`;
+  const contactEmail = 'shatil4135@gmail.com';
+  const [emailCopyStatus, setEmailCopyStatus] = useState<'idle' | 'copied' | 'failed'>('idle');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -95,11 +97,49 @@ export const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (emailCopyStatus === 'idle') {
+      return;
+    }
+
+    const timeout = setTimeout(() => setEmailCopyStatus('idle'), 2500);
+    return () => clearTimeout(timeout);
+  }, [emailCopyStatus]);
+
   const featuredExperiences = useMemo(() => experiences.slice(0, 2), []);
   const featuredSkills = useMemo(() => skillCategories.slice(0, 4), []);
   const featuredProjects = useMemo(() => projects.slice(0, 3), []);
   const featuredArticles = useMemo(() => articles.slice(0, 2), []);
   const featuredMedia = useMemo(() => mediaItems.slice(0, 3), []);
+
+  const handleCopyEmail = async () => {
+    try {
+      if (
+        typeof navigator !== 'undefined' &&
+        navigator.clipboard &&
+        typeof navigator.clipboard.writeText === 'function'
+      ) {
+        await navigator.clipboard.writeText(contactEmail);
+      } else if (typeof document !== 'undefined') {
+        const textarea = document.createElement('textarea');
+        textarea.value = contactEmail;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      } else {
+        throw new Error('Clipboard not available');
+      }
+
+      setEmailCopyStatus('copied');
+    } catch (error) {
+      console.error('Unable to copy email address', error);
+      setEmailCopyStatus('failed');
+    }
+  };
 
   const timeline = useMemo(
     () => [
@@ -215,6 +255,36 @@ export const Home = () => {
               >
                 <Mail className="w-7 h-7" />
               </a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.8 }}
+              className="flex flex-col items-center gap-3 pt-6"
+            >
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 transition-shadow"
+              >
+                Let's collaborate
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 px-5 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-cyan-500 dark:hover:border-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+              >
+                <Mail className="w-4 h-4" /> Copy email address
+              </button>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                Or drop a message at{' '}
+                <span className="font-mono text-slate-700 dark:text-slate-200">{contactEmail}</span>
+              </p>
+              <span className="text-xs text-slate-500 dark:text-slate-400" aria-live="polite">
+                {emailCopyStatus === 'copied' && 'Email copied! Paste it wherever you need.'}
+                {emailCopyStatus === 'failed' && 'Copy didn\'t work—long press or right click to copy instead.'}
+              </span>
             </motion.div>
           </motion.div>
 

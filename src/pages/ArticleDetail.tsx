@@ -45,11 +45,11 @@ export const ArticleDetail = () => {
           </Link>
 
           <div className="mb-8">
-            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-6">
               {article.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-6 text-sm text-slate-600 dark:text-slate-400 mb-6">
+            <div className="flex flex-wrap items-center gap-6 text-sm text-slate-600 dark:text-slate-300 mb-6">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 <span>
@@ -67,11 +67,11 @@ export const ArticleDetail = () => {
             </div>
 
             <div className="flex items-center gap-2 flex-wrap mb-8">
-              <Tag className="w-4 h-4 text-slate-400" />
+              <Tag className="w-4 h-4 text-slate-400 dark:text-slate-300" />
               {article.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium"
+                  className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800/70 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium"
                 >
                   {tag}
                 </span>
@@ -79,7 +79,7 @@ export const ArticleDetail = () => {
             </div>
           </div>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-slate-900 dark:prose-headings:text-white prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-code:text-cyan-600 dark:prose-code:text-cyan-400 prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-700">
+          <div className="prose prose-lg dark:prose-invert max-w-none text-slate-700 dark:text-slate-200 prose-headings:text-slate-900 dark:prose-headings:text-slate-50 prose-p:text-inherit prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-code:text-cyan-600 dark:prose-code:text-cyan-300 prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-700">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
           </div>
 

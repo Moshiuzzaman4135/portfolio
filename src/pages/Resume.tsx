@@ -76,8 +76,8 @@ export const Resume = () => {
   }, [resumeURL]);
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-slate-100 via-white to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-7rem)] pb-16 bg-gradient-to-br from-slate-100 via-white to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
         {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -20,7 +20,7 @@ function App() {
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
           <Header />
           <ScrollToTop />
-          <main className="pt-20 md:pt-28">
+          <main>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/experience" element={<Experience />} />

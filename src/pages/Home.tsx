@@ -164,8 +164,10 @@ export const Home = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-100 via-white to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMDAsMjA2LDIxNywwLjA0KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30"></div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden 
+      bg-gradient-to-br from-slate-100 via-white to-slate-200 
+      dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pt-20">
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMDAsMjA2LDIxNywwLjA0KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30"></div>
         <div className="pointer-events-none fixed inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/6 w-[45rem] h-[45rem] max-w-none bg-cyan-400/20 dark:bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/5 right-1/6 w-[45rem] h-[45rem] max-w-none bg-blue-300/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -294,7 +296,13 @@ export const Home = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 1, repeat: Infinity, repeatType: 'reverse' }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 pointer-events-none"
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+            onClick={() => {
+              window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth',
+              });
+            }}
           >
             <ChevronDown className="w-8 h-8 text-slate-400" />
           </motion.div>

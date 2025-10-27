@@ -1,13 +1,90 @@
+import type { HTMLAttributes, ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { articles } from '../data/articles';
+import { useTheme } from '../contexts/ThemeContext';
+
+type MarkdownCodeProps = {
+  inline?: boolean;
+  className?: string;
+  children: ReactNode;
+} & HTMLAttributes<HTMLElement>;
 
 export const ArticleDetail = () => {
   const { id } = useParams<{ id: string }>();
   const article = articles.find((a) => a.id === id);
+  const { isDark } = useTheme();
+
+  const CodeBlock = ({ inline, className, children, ...props }: MarkdownCodeProps) => {
+    const [copied, setCopied] = useState(false);
+    const language = useMemo(() => {
+      if (!className) return 'text';
+      const match = className.match(/language-(\w+)/);
+      return match ? match[1] : 'text';
+    }, [className]);
+
+    const code = useMemo(() => String(children).replace(/\n$/, ''), [children]);
+
+    const handleCopy = () => {
+      if (typeof navigator === 'undefined' || !navigator.clipboard) return;
+      navigator.clipboard
+        .writeText(code)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        })
+        .catch(() => {
+          setCopied(false);
+        });
+    };
+
+    if (inline) {
+      return (
+        <code
+          className={`whitespace-nowrap rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 font-mono text-sm text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-100 ${className ?? ''}`.trim()}
+          {...props}
+        >
+          {children}
+        </code>
+      );
+    }
+
+    return (
+      <div
+        className={`group relative my-8 overflow-hidden rounded-2xl border shadow-lg transition dark:shadow-none ${
+          isDark ? 'border-slate-800 bg-slate-900/90' : 'border-slate-200 bg-white'
+        }`}
+      >
+        <div className="flex items-center justify-between border-b border-slate-200/80 bg-slate-900/5 px-4 py-2 dark:border-slate-800 dark:bg-slate-950/60">
+          <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+            {language}
+          </span>
+          <button
+            type="button"
+            onClick={handleCopy}
+            className="inline-flex items-center gap-1 rounded-lg border border-slate-300/70 bg-white/80 px-3 py-1 text-xs font-medium text-slate-600 backdrop-blur transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:bg-slate-800"
+          >
+            {copied ? 'Copied!' : 'Copy'}
+          </button>
+        </div>
+        <pre
+          className={`max-h-[480px] overflow-auto px-4 py-5 text-sm leading-relaxed font-mono ${
+            isDark
+              ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100'
+              : 'bg-gradient-to-br from-slate-900/95 via-slate-800 to-slate-900 text-slate-100'
+          }`}
+        >
+          <code className={`block whitespace-pre text-left font-mono text-sm ${className ?? ''}`} {...props}>
+            {code}
+          </code>
+        </pre>
+      </div>
+    );
+  };
 
   if (!article) {
     return (
@@ -79,8 +156,16 @@ export const ArticleDetail = () => {
             </div>
           </div>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none text-slate-700 dark:text-slate-200 prose-headings:text-slate-900 dark:prose-headings:text-slate-50 prose-p:text-inherit prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-code:text-cyan-600 dark:prose-code:text-cyan-300 prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-700">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
+          <div className="prose prose-lg dark:prose-invert max-w-none text-slate-700 dark:text-slate-200 prose-headings:text-slate-900 dark:prose-headings:text-slate-50 prose-p:text-inherit prose-a:text-cyan-600 dark:prose-a:text-cyan-400">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                pre: ({ children }) => <>{children}</>,
+                code: CodeBlock,
+              }}
+            >
+              {article.content}
+            </ReactMarkdown>
           </div>
 
           <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
